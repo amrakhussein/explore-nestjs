@@ -647,7 +647,7 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@nestjs/cli@^8.0.0":
+"@nestjs/cli@^8.2.7":
   version "8.2.7"
   resolved "https://registry.yarnpkg.com/@nestjs/cli/-/cli-8.2.7.tgz#0eda805f2b4d636b37184a522160a4b6a8c65cfb"
   integrity sha512-wvdH9FLpLPj3HVyYVAVLgy4QJSUALVBzaOtd+eAkZgubkhteao+P1Qnqhu7Sugyiv2/bV5yVOJm7x7yqgueJ9g==
