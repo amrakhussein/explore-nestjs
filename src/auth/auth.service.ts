@@ -35,9 +35,36 @@ export class AuthService {
     } catch (error) {
       // catch non unique entries in sql schema if any
       if (error instanceof PrismaClientKnownRequestError) {
+        // duplicate code violation
         if (error.code === 'P2002')
-          throw new ForbiddenException('Non unique values are not allowed!');
+          throw new ForbiddenException('Unique values only are allowed!');
       }
+      throw error;
     }
+  }
+
+  async signIn(signinAuthDto: AuthDto) {
+    const foundUser = await this.prisma.user.findUnique({
+      where: {
+        username: signinAuthDto.username,
+      },
+    });
+    if (!foundUser)
+      throw new ForbiddenException(
+        "Either Account doesn't exit or password is incorrect!",
+      );
+
+    const passwordMatched = await argon.verify(
+      foundUser.hash,
+      signinAuthDto.password,
+    );
+
+    if (!passwordMatched)
+      throw new ForbiddenException(
+        "Either Account doesn't exit or password is incorrect!",
+      );
+
+    delete foundUser.hash;
+    return foundUser;
   }
 }
